@@ -14,6 +14,7 @@ Route::get('/user/logout', 'HomeController@Logout')->name('user.logout');
 Route::get('admin/home', 'AdminController@index');
 Route::get('admin', 'Admin\LoginController@showLoginForm')->name('admin.login');
 Route::post('admin', 'Admin\LoginController@login');
+
 // Password Reset Routes...
 Route::get('admin/password/reset', 'Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::post('admin-password/email', 'Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -55,6 +56,8 @@ Route::get('blog-posts/{blog_post}/destroy', 'Admin\BlogPostsController@destroy'
 //get sub category by ajax
 Route::get('get/sub/category/{category_id}', 'Admin\ProductsController@getSubCategory');
 
+//wishlists
+Route::get('store/wishlist/{id}', 'WishlistsController@store')->name('wishlist.store');
 
 //all frontend routes are here
 Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('store.newsletters');

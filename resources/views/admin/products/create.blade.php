@@ -209,6 +209,14 @@
                                     </label>
                                 </div>
                             </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="ckbox">
+                                        <input type="checkbox" name="buyone_getone" value="1">
+                                        <span>Buy One Get One</span>
+                                    </label>
+                                </div>
+                            </div><!-- col-4 -->
                         </div><!-- row -->
 
                         <div class="form-layout-footer">

@@ -175,6 +175,16 @@
                                     <span>Hot New</span>
                             </div>
                         </div><!-- col-4 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @if($product->buyone_getone == 1)
+                                    <span class="badge badge-success">Active</span> |
+                                @else
+                                    <span class="badge badge-danger">Inactive</span> |
+                                @endif
+                                <span>Buy One Get One</span>
+                            </div>
+                        </div><!-- col-4 -->
                     </div><!-- row -->
                 </div><!-- form-layout -->
             </div><!-- card -->

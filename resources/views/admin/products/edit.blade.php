@@ -255,6 +255,15 @@
                                     </label>
                                 </div>
                             </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="ckbox">
+                                        <input type="hidden" name="buyone_getone" value="0">
+                                        <input type="checkbox" name="buyone_getone" value="1" {{ $product->buyone_getone ? 'checked' : '' }}>
+                                        <span>Buy One Get One</span>
+                                    </label>
+                                </div>
+                            </div><!-- col-4 -->
                         </div><!-- row -->
 
                         <div class="form-layout-footer">

@@ -154,8 +154,8 @@
                             <div class="tabs">
                                 <ul class="clearfix">
                                     <li class="active">Featured</li>
-                                    <li>On Sale</li>
-                                    <li>Best Rated</li>
+                                    {{--<li>On Sale</li>
+                                    <li>Best Rated</li>--}}
                                 </ul>
                                 <div class="tabs_line"><span></span></div>
                             </div>
@@ -197,7 +197,16 @@
                                                         <button class="product_cart_button">Add to Cart</button>
                                                     </div>
                                                 </div>
-                                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                @php
+                                                    $wishlist = \App\Model\Wishlist::where('product_id', $row->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->first();
+                                                @endphp
+                                                <button class="add-wishlist" data-id="{{ $row->id }}">
+                                                    @if($wishlist)
+                                                        <div class="product_fav"><i class="fas fa-heart text-danger"></i></div>
+                                                    @else
+                                                        <div class="product_fav"><i class="far fa-heart"></i></div>
+                                                    @endif
+                                                </button>
                                                 <ul class="product_marks">
                                                     @if($row->discount_price)
                                                         @php
@@ -217,7 +226,7 @@
                                 <div class="featured_slider_dots_cover"></div>
                             </div>
 
-                            <!-- Product Panel -->
+                            {{--<!-- Product Panel -->
 
                             <div class="product_panel panel">
                                 <div class="featured_slider slider">
@@ -244,18 +253,27 @@
                                                     <div><a href="product.html">{{ $row->product_name }}</a></div>
                                                 </div>
                                                 <div class="product_extras">
-                                                    {{--<div class="product_color">
+                                                    --}}{{--<div class="product_color">
                                                         <input type="radio" checked name="product_color"
                                                                style="background:#b19c83">
                                                         <input type="radio" name="product_color"
                                                                style="background:#000000">
                                                         <input type="radio" name="product_color"
                                                                style="background:#999999">
-                                                    </div>--}}
+                                                    </div>--}}{{--
                                                     <button class="product_cart_button">Add to Cart</button>
                                                 </div>
                                             </div>
-                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                            @php
+                                                $wishlist = \App\Model\Wishlist::where('product_id', $row->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->first();
+                                            @endphp
+                                            <a href="{{ route('wishlist.store', $row->id) }}">
+                                                @if($wishlist)
+                                                    <div class="product_fav"><i class="fas fa-heart text-danger"></i></div>
+                                                @else
+                                                    <div class="product_fav"><i class="far fa-heart"></i></div>
+                                                @endif
+                                            </a>
                                             <ul class="product_marks">
                                                 @if($row->discount_price)
                                                     @php
@@ -302,18 +320,27 @@
                                                     <div><a href="product.html">{{ $row->product_name }}</a></div>
                                                 </div>
                                                 <div class="product_extras">
-                                                    {{--<div class="product_color">
+                                                    --}}{{--<div class="product_color">
                                                         <input type="radio" checked name="product_color"
                                                                style="background:#b19c83">
                                                         <input type="radio" name="product_color"
                                                                style="background:#000000">
                                                         <input type="radio" name="product_color"
                                                                style="background:#999999">
-                                                    </div>--}}
+                                                    </div>--}}{{--
                                                     <button class="product_cart_button">Add to Cart</button>
                                                 </div>
                                             </div>
-                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                            @php
+                                                $wishlist = \App\Model\Wishlist::where('product_id', $row->id)->where('user_id', \Illuminate\Support\Facades\Auth::id())->first();
+                                            @endphp
+                                            <a href="{{ route('wishlist.store', $row->id) }}">
+                                                @if($wishlist)
+                                                    <div class="product_fav"><i class="fas fa-heart text-danger"></i></div>
+                                                @else
+                                                    <div class="product_fav"><i class="far fa-heart"></i></div>
+                                                @endif
+                                            </a>
                                             <ul class="product_marks">
                                                 @if($row->discount_price)
                                                     @php
@@ -331,7 +358,7 @@
 
                                 </div>
                                 <div class="featured_slider_dots_cover"></div>
-                            </div>
+                            </div>--}}
 
                         </div>
                     </div>
@@ -3570,5 +3597,43 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-wishlist').click(function(){
+                var id = $(this).data('id');
+                if (id){
+                    $.ajax({
+                        url: "{{ url('/store/wishlist/') }}/"+id,
+                        method: 'get',
+                        dataType: 'json',
+                        success: function(result){
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                            })
+
+                            if($.isEmptyObject(result.error)){
+                                Toast.fire({
+                                    type: 'success',
+                                    title: result.success
+                                })
+                            } else {
+                                Toast.fire({
+                                    type: 'error',
+                                    title: result.error
+                                })
+                            }
+
+                        }});
+                } else {
+                    alert('danger');
+                }
+            });
+        });
+    </script>
 
 @endsection
