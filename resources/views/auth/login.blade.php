@@ -44,7 +44,7 @@
                         <br>
                         <a href="{{ route('admin.password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
                         <button type="submit" class="btn btn-primary btn-block">Login with facebook</button>
-                        <button type="submit" class="btn btn-danger btn-block">Login with google</button>
+                        <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger btn-block">Login with google</a>
 
                     </div>
                 </div>

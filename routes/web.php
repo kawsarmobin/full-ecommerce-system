@@ -63,6 +63,10 @@ Route::get('store/wishlist/{id}', 'WishlistsController@store')->name('wishlist.s
 Route::get('add/to/cart/{id}', 'CartController@addCart');
 Route::get('check', 'CartController@check');
 
+//socialite
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');
+
 //all frontend routes are here
 Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('store.newsletters');
 

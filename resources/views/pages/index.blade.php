@@ -1876,6 +1876,8 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- add wishlist -->
     <script type="text/javascript">
         $(document).ready(function(){
             $('.add-wishlist').click(function(){
@@ -1913,6 +1915,7 @@
         });
     </script>
 
+    <!-- add to cart -->
     <script type="text/javascript">
         $(document).ready(function(){
             $('.add_cart').click(function(){
