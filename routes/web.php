@@ -56,8 +56,12 @@ Route::get('blog-posts/{blog_post}/destroy', 'Admin\BlogPostsController@destroy'
 //get sub category by ajax
 Route::get('get/sub/category/{category_id}', 'Admin\ProductsController@getSubCategory');
 
-//wishlists
+//add wishlist ajax
 Route::get('store/wishlist/{id}', 'WishlistsController@store')->name('wishlist.store');
+
+//add cart ajax
+Route::get('add/to/cart/{id}', 'CartController@addCart');
+Route::get('check', 'CartController@check');
 
 //all frontend routes are here
 Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('store.newsletters');
