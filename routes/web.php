@@ -71,5 +71,6 @@ Route::get('/callback/{provider}', 'SocialController@callback');
 Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('store.newsletters');
 
 Route::get('product/details/{id}/{product_name}', 'ProductController@productView')->name('product.view');
+Route::post('cart/product/add/{id}', 'ProductController@cartProductAdd')->name('cart.product.add');
 
 //customer profile related routes

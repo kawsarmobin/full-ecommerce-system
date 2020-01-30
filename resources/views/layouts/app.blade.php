@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/styles/responsive.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/styles/product_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/styles/product_responsive.css') }}">
 
 </head>
 
@@ -147,7 +149,7 @@
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                     <div class="cart_icon">
                                         <img src="{{ asset('public/frontend/images/cart.png') }}" alt="">
-                                        <div class="cart_count"><span>{{ Cart::count() }}</span></div>
+                                        <div class="cart_count"><span>{{ Cart::content()->count() }}</span></div>
                                     </div>
                                     <div class="cart_content">
                                         <div class="cart_text"><a href="#">Cart</a></div>
@@ -320,6 +322,9 @@
             });
     });
 </script>
+
+
+<script src="{{ asset('public/frontend/js/product_custom.js') }}"></script>
 
 </body>
 
