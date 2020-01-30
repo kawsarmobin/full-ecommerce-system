@@ -70,5 +70,6 @@ Route::get('/callback/{provider}', 'SocialController@callback');
 //all frontend routes are here
 Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('store.newsletters');
 
+Route::get('product/details/{id}/{product_name}', 'ProductController@productView')->name('product.view');
 
 //customer profile related routes

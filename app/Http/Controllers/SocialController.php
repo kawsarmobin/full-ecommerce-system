@@ -16,7 +16,6 @@ class SocialController extends Controller
 
     public function callback($provider)
     {
-
         $getInfo = Socialite::driver($provider)->user();
 
         $user = $this->createUser($getInfo, $provider);
@@ -24,7 +23,6 @@ class SocialController extends Controller
         auth()->login($user);
 
         return redirect()->to('/home');
-
     }
 
     function createUser($getInfo, $provider)

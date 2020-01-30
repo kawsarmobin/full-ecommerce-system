@@ -184,7 +184,7 @@
                                                         @endif
                                                     </div>
                                                     <div class="product_name">
-                                                        <div><a href="product.html">{{ $row->product_name }}</a></div>
+                                                        <div><a href="{{ route('product.view', [$row->id, $row->product_name]) }}">{{ $row->product_name }}</a></div>
                                                     </div>
                                                     <div class="product_extras">
                                                         {{--<div class="product_color">

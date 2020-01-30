@@ -23,9 +23,11 @@ class CartController extends Controller
         }
         $data['weight'] = 1;
         $data['options']['image'] = $product->image_one;
+        $data['options']['color'] = '';
+        $data['options']['size'] = '';
 
         Cart::add($data);
-        return response()->json(['success' => 'Successfully add your cart!']);
+        return response()->json(['success' => 'Successfully added on your cart!']);
     }
 
     public function check()
