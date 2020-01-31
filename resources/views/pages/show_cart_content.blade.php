@@ -24,18 +24,22 @@
                                                 <div class="cart_item_title">Name</div>
                                                 <div class="cart_item_text">{{ $row->name }}</div>
                                             </div>
-                                            <div class="cart_item_color cart_info_col">
-                                                <div class="cart_item_title">Color</div>
-                                                <div class="cart_item_text">
-                                                    {{ $row->options->color }}
+                                            @if($row->options->color)
+                                                <div class="cart_item_color cart_info_col">
+                                                    <div class="cart_item_title">Color</div>
+                                                    <div class="cart_item_text">
+                                                        {{ $row->options->color }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="cart_item_color cart_info_col">
-                                                <div class="cart_item_title">Size</div>
-                                                <div class="cart_item_text">
-                                                    {{ $row->options->size }}
+                                            @endif
+                                            @if($row->options->size)
+                                                <div class="cart_item_color cart_info_col">
+                                                    <div class="cart_item_title">Size</div>
+                                                    <div class="cart_item_text">
+                                                        {{ $row->options->size }}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                             <div class="cart_item_quantity cart_info_col">
                                                 <div class="cart_item_title">Quantity</div>
                                                 <form action="{{ route('update.cart.item') }}" method="post">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Admin\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
@@ -40,5 +41,43 @@ class ProductController extends Controller
         Cart::add($data);
         Session::flash('success', 'Successfully added on your cart!');
         return redirect()->to('/');
+    }
+
+    public function cartProductView($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product_color = explode(',', $product->product_color);
+        $product_size = explode(',', $product->product_size);
+
+        return Response::json(array(
+            'product' => $product->load(['category', 'subCategory', 'brand']),
+            'color' => $product_color,
+            'size' => $product_size,
+        ));
+    }
+
+    protected function insertCart(Request $request)
+    {
+        $id = $request->product_id;
+        $product = Product::findOrFail($id);
+
+        $data = array();
+        $data['id'] = $product->id;
+        $data['name'] = $product->product_name;
+        $data['qty'] = $request->qty;
+        if ($product->discount_price == NULL){
+            $data['price'] = $product->selling_price;
+        } else {
+            $data['price'] = $product->discount_price;
+        }
+        $data['weight'] = 1;
+        $data['options']['image'] = $product->image_one;
+        $data['options']['color'] = $request->color;
+        $data['options']['size'] = $request->size;
+
+        Cart::add($data);
+        Session::flash('success', 'Successfully added on your cart!');
+        return back();
     }
 }

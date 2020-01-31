@@ -154,7 +154,7 @@
                         <div class="tabbed_container">
                             <div class="tabs">
                                 <ul class="clearfix">
-                                    <li class="active">Featured</li>
+                                    <li class="active">New Featured</li>
                                     {{--<li>On Sale</li>
                                     <li>Best Rated</li>--}}
                                 </ul>
@@ -176,7 +176,7 @@
                                                     <img src="{{ \App\Model\Admin\Product::ATTACH_UPLOAD_PATH.'/'.$row->image_one }}" width="115px" height="115px">
                                                 </div>
                                                 <div class="product_content">
-                                                    <div class="product_price discount">
+                                                    <div class="product_price discount mt-0">
                                                         @if($row->discount_price)
                                                             ${{ $row->discount_price }}<span>${{ $row->selling_price }}</span>
                                                         @else
@@ -187,15 +187,10 @@
                                                         <div><a href="{{ route('product.view', [$row->id, $row->product_name]) }}">{{ $row->product_name }}</a></div>
                                                     </div>
                                                     <div class="product_extras">
-                                                        {{--<div class="product_color">
-                                                            <input type="radio" checked name="product_color"
-                                                                   style="background:#b19c83">
-                                                            <input type="radio" name="product_color"
-                                                                   style="background:#000000">
-                                                            <input type="radio" name="product_color"
-                                                                   style="background:#999999">
-                                                        </div>--}}
-                                                        <button class="product_cart_button add_cart" data-id="{{ $row->id }}">Add to Cart</button>
+                                                        {{--<button class="product_cart_button add_cart" data-id="{{ $row->id }}">Add to Cart</button>--}}
+                                                        <button id="{{ $row->id }}" onclick="cartProductView(this.id)" type="button" class="product_cart_button btn btn-primary" data-toggle="modal" data-target="#addCartModal">
+                                                            Add to Cart
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 @php
@@ -1875,7 +1870,91 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Sort Product Description</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4 ml-auto">
+                                <img id="product_image" src="" alt="..." class="img-thumbnail">
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><h5 id="product_name" class="pt-2"></h5></li>
+                                    <li class="list-group-item">Product Code: <span id="product_code"></span></li>
+                                    <li class="list-group-item">Category: <span id="category_name"></span></li>
+                                    <li class="list-group-item">Sub Category: <span id="sub_category_name"></span></li>
+                                    <li class="list-group-item">Brand: <span id="brand_name"></span></li>
+                                    <li class="list-group-item">Stock: <span class="badge badge-success">Available</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <form action="{{ route('insert.into.cart') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="product_id" id="product_id">
+                                    <div class="form-group">
+                                        <label>Quantity</label>
+                                        <input type="number" class="form-control" placeholder="Enter number" value="1" name="qty">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Color</label> <br>
+                                        <select class="custom-select ml-0 form-control" name="color">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Size</label> <br>
+                                        <select class="custom-select ml-0 form-control" name="size">
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Add to cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!--add to cart modal-->
+    <script>
+        function cartProductView(id) {
+            $.ajax({
+                url: "{{ url('/cart/product/view/') }}/"+id,
+                type: "GET",
+                dataType: 'json',
+                success: function(data){
+                    $('#product_name').text(data.product.product_name);
+                    $('#product_code').text(data.product.product_code);
+                    $('#product_image').attr('src', data.product.image_one);
+                    $('#category_name').text(data.product.category.name);
+                    $('#sub_category_name').text(data.product.sub_category.name);
+                    $('#brand_name').text(data.product.brand.name);
+                    $('#product_id').val(data.product.id);
+
+                    var d = $('select[name="color"]').empty();
+                    $.each(data.color, function (key, value) {
+                        $('select[name="color"]').append('<option value="'+value+'">'+value+'</option>');
+                    });
+
+                    var d = $('select[name="size"]').empty();
+                    $.each(data.size, function (key, value) {
+                        $('select[name="size"]').append('<option value="'+value+'">'+value+'</option>');
+                    });
+                },
+            });
+        }
+    </script>
 
     <!-- add wishlist -->
     <script type="text/javascript">
@@ -1916,7 +1995,7 @@
     </script>
 
     <!-- add to cart -->
-    <script type="text/javascript">
+    {{--<script type="text/javascript">
         $(document).ready(function(){
             $('.add_cart').click(function(){
                 var id = $(this).data('id');
@@ -1951,6 +2030,6 @@
                 }
             });
         });
-    </script>
+    </script>--}}
 
 @endsection

@@ -75,5 +75,7 @@ Route::post('store/newsletter', 'FrontendController@storeNewsLetters')->name('st
 
 Route::get('product/details/{id}/{product_name}', 'ProductController@productView')->name('product.view');
 Route::post('cart/product/add/{id}', 'ProductController@cartProductAdd')->name('cart.product.add');
+Route::get('cart/product/view/{id}', 'ProductController@cartProductView')->name('update.cart.view');
+Route::post('/insert/into/cart', 'ProductController@insertCart')->name('insert.into.cart');
 
 //customer profile related routes
