@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Model\Admin\Product;
+use App\Model\Wishlist;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -51,6 +53,24 @@ class CartController extends Controller
         Cart::update($rowId, $qty); // Will update the quantity
         Session::flash('success', 'Successfully updated on your cart!');
         return back();
+    }
+
+    public function checkout()
+    {
+        if (Auth::check()){
+            return view('pages.checkout')->with('cart', Cart::content());
+        } else {
+            Session::flash('error', 'At first login your account!');
+            return back();
+        }
+    }
+
+    public function wishlist()
+    {
+        $user_id = Auth::id();
+        $wishlist = Wishlist::where('user_id', $user_id)->get();
+        return view('pages.wishlist')
+            ->with('wishlist', $wishlist);
     }
 
     public function check()

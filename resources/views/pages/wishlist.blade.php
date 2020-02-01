@@ -1,68 +1,49 @@
 @extends('layouts.app')
 @section('content')
 
-    {{--@php
-      dd($cart);
-    @endphp--}}
-
     <div class="cart_section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
                     <div class="cart_container">
-                        <div class="cart_title">Shopping Cart</div>
+                        <div class="cart_title">Your wishlist</div>
                             <div class="cart_items">
                                 <ul class="cart_list">
-                                    @foreach($cart as $row)
+                                    @foreach($wishlist as $row)
                                     <li class="cart_item clearfix">
                                         <div class="cart_item_image"><img
-                                                src="{{ $row->options->image }}" width="133px" height="133px">
+                                                src="{{ $row->product->image_one }}" width="133px" height="133px">
                                         </div>
                                         <div
                                             class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                             <div class="cart_item_name cart_info_col">
                                                 <div class="cart_item_title">Name</div>
-                                                <div class="cart_item_text">{{ $row->name }}</div>
+                                                <div class="cart_item_text">{{ $row->product->product_name }}</div>
                                             </div>
-                                            @if($row->options->color)
+                                            @if($row->product->product_color)
                                                 <div class="cart_item_color cart_info_col">
                                                     <div class="cart_item_title">Color</div>
                                                     <div class="cart_item_text">
-                                                        {{ $row->options->color }}
+                                                        {{ $row->product->product_color }}
                                                     </div>
                                                 </div>
                                             @endif
-                                            @if($row->options->size)
+                                            @if($row->product->product_size)
                                                 <div class="cart_item_color cart_info_col">
                                                     <div class="cart_item_title">Size</div>
                                                     <div class="cart_item_text">
-                                                        {{ $row->options->size }}
+                                                        {{ $row->product->product_size }}
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class="cart_item_quantity cart_info_col">
-                                                <div class="cart_item_title">Quantity</div>
-                                                <div class="cart_item_text">
-                                                    <form action="{{ route('update.cart.item') }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="product_rowId" value="{{ $row->rowId }}">
-                                                        <input type="number" name="qty" value="{{ $row->qty }}" style="width: 50px; height: 30px">
-                                                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check-square"></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
                                             <div class="cart_item_price cart_info_col">
                                                 <div class="cart_item_title">Price</div>
-                                                <div class="cart_item_text">${{ $row->price }}</div>
-                                            </div>
-                                            <div class="cart_item_total cart_info_col">
-                                                <div class="cart_item_title">Total</div>
-                                                <div class="cart_item_text">${{ $row->qty * $row->price }}</div>
+                                                <div class="cart_item_text">${{ $row->product->selling_price }}</div>
                                             </div>
                                             <div class="cart_item_total cart_info_col">
                                                 <div class="cart_item_title">Action</div>
                                                 <div class="cart_item_text">
-                                                    <a href="{{ route('cart.remove', $row->rowId) }}" class="btn btn-sm btn-danger">X</a>
+                                                    <a href="#" class="btn btn-sm btn-danger">Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>

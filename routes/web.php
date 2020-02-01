@@ -65,6 +65,8 @@ Route::get('check', 'CartController@check');
 Route::get('show-cart-content', 'CartController@showCartContent')->name('show.cart.content');
 Route::get('cart-remove/{rowId}', 'CartController@cartRemove')->name('cart.remove');
 Route::post('update-cart-item', 'CartController@updateCartItem')->name('update.cart.item');
+Route::get('checkout', 'CartController@checkout')->name('user.checkout');
+Route::get('wishlist', 'CartController@wishlist')->name('user.wishlist');
 
 //socialite
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');

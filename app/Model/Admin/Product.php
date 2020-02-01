@@ -2,6 +2,7 @@
 
 namespace App\Model\Admin;
 
+use App\Model\Wishlist;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -42,5 +43,10 @@ class Product extends Model
     public function getImageThreeAttribute($value)
     {
         return asset(Product::ATTACH_UPLOAD_PATH . '/' . $value);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasOne(Wishlist::class);
     }
 }
