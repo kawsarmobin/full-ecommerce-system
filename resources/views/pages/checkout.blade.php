@@ -99,12 +99,12 @@
                                         </li>
                                     </ul>
 
-                                    {{--<div class="input-group float-right">
+                                    <div class="input-group float-right">
                                         <div class="input-group-append">
-                                            <button type="submit" class="btn btn-secondary">Cancel</button>
-                                            <button type="submit" class="btn btn-secondary">Redeem</button>
+                                            <a href="{{ route('show.cart.content') }}" class="btn btn-outline-success px-5">Back</a>
+                                            <a href="#" class="btn btn-primary px-4">Final Step</a>
                                         </div>
-                                    </div>--}}
+                                    </div>
                                 </div>
                                 <div class="col-md-8 order-md-1">
                                     <h4 class="mb-3">Apply Coupon</h4>
@@ -114,7 +114,11 @@
                                                 <input type="text" class="form-control" id="firstName" placeholder="coupon code" value="" required="">
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                                        <div class="input-group float-right">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary btn-sm px-5 py-2" type="submit">Submit</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
